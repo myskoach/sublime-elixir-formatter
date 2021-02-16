@@ -1,4 +1,4 @@
-# sublime-ex-formatter
+# ElixirFormatter
 
 Sublime Text 3 plugin for formatting Elixir files on save via `mix format`.
 
@@ -17,7 +17,7 @@ Use with care.
 
 ### 1. Package Control
 
-Look for ExFormatter.
+Look for ElixirFormatter.
 
 ### 2. Through git
 
@@ -26,7 +26,7 @@ Look for ExFormatter.
 
 ### 3. Manually
 
-Download this repo as an ExFormatter folder and save it into your packages (in Sublime: Preferences > Browse Packages...).
+Download this repo as an ElixirFormatter folder and save it into your packages (in Sublime: Preferences > Browse Packages...).
 
 ## Contributing
 

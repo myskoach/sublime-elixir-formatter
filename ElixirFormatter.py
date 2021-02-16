@@ -14,24 +14,24 @@ DEPENDENCY_ERROR_RE = re.compile(
     r"^\*\*\s\((.+)\)\sUnknown dependency\s(.+)\sin the formatter configuration.+environment\s(:.+)$",
     re.MULTILINE | re.IGNORECASE | re.UNICODE)
 
-PLUGIN_NAME = "ExFormatter"
-PLUGIN_CMD_NAME = "ex_formatter_format_file"
+PLUGIN_NAME = "ElixirFormatter"
+PLUGIN_CMD_NAME = "elixir_formatter_format_file"
 
-class ExFormatter:
+class ElixirFormatter:
     @staticmethod
     def run(view, edit, file_name):
-        project_root_with_mix = ExFormatter.find_project(file_name)
+        project_root_with_mix = ElixirFormatter.find_project(file_name)
         project_root = project_root_with_mix or os.path.dirname(file_name)
         file_name_rel = file_name.replace(project_root + "/", "")
 
-        blacklisted = ExFormatter.check_blacklisted_in_config(project_root, file_name_rel)
+        blacklisted = ElixirFormatter.check_blacklisted_in_config(project_root, file_name_rel)
         if blacklisted:
             print("{0} skipped '{1}' due to :inputs key in '.formatter.exs'".
               format(PLUGIN_NAME, file_name_rel))
             return
 
         region = sublime.Region(0, view.size())
-        [stdout, stderr, exit_code] = ExFormatter.run_command(project_root, ["mix", "format", file_name_rel])
+        [stdout, stderr, exit_code] = ElixirFormatter.run_command(project_root, ["mix", "format", file_name_rel])
         if exit_code == 0:
             previous_position = view.viewport_position()
             Utils.indent(view)
@@ -57,7 +57,7 @@ class ExFormatter:
         elif os.path.exists(os.path.join(cwd, 'mix.exs')):
             return cwd
         else:
-            return ExFormatter.find_project(os.path.dirname(cwd))
+            return ElixirFormatter.find_project(os.path.dirname(cwd))
 
     @staticmethod
     def run_command(project_root, task_args):
@@ -109,19 +109,19 @@ class ExFormatter:
         if not os.path.isfile(os.path.join(project_root, ".formatter.exs")):
             return
 
-        script = ExFormatter.check_blacklisted_script_template.replace("[[file]]", file_name)
-        [stderr, stdout, exit_code] = ExFormatter.run_command(project_root, ["elixir", "-e", script])
+        script = ElixirFormatter.check_blacklisted_script_template.replace("[[file]]", file_name)
+        [stderr, stdout, exit_code] = ElixirFormatter.run_command(project_root, ["elixir", "-e", script])
         return "Check result: false" in stdout
 
-class ExFormatterFormatFileCommand(sublime_plugin.TextCommand):
+class ElixirFormatterFormatFileCommand(sublime_plugin.TextCommand):
     def run(self, edit):
         file_name = self.view.file_name()
         extension = os.path.splitext(file_name)[1][1:]
         syntax = self.view.settings().get("syntax")
         if extension in ["ex", "exs"] or "Elixir" in syntax:
-            threading.Thread(target=ExFormatter.run, args=(self.view, edit, file_name,)).start()
+            threading.Thread(target=ElixirFormatter.run, args=(self.view, edit, file_name,)).start()
 
-class ExFormatterEventListeners(sublime_plugin.EventListener):
+class ElixirFormatterEventListeners(sublime_plugin.EventListener):
     @staticmethod
     def on_pre_save(view):
         view.run_command(PLUGIN_CMD_NAME)
