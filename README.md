@@ -22,7 +22,7 @@ Look for ElixirFormatter.
 ### 2. Through git
 
 1. Go to your packages folder (in Sublime: Preferences > Browse Packages...).
-2. Clone the repo `git clone https://github.com/myskoach/sublime-ex-formatter.git`
+2. Clone the repo `git clone https://github.com/myskoach/sublime-elixir-formatter.git`
 
 ### 3. Manually
 
