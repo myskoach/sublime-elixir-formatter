@@ -1,0 +1,13 @@
+ElixirFormatter
+===============
+
+Hey there! Here's what this does:
+
+1. Formats the file on save using test env
+2. Maintains position in buffer
+3. Goes to line on syntax error
+4. Considers project configs
+
+Something not working? Check the console 👍
+
+Issues and error reports: https://github.com/myskoach/sublime-elixir-formatter
