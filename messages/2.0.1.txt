@@ -1,0 +1,7 @@
+ElixirFormatter
+===============
+
+2.0.1
+-----
+
+- Fixes line numbers being incorrectly parsed from Syntax Errors in Elixir 1.11
