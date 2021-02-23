@@ -1,6 +1,3 @@
-ElixirFormatter
-===============
-
 Hey there! Here's what this does:
 
 1. Formats the file on save using test env
